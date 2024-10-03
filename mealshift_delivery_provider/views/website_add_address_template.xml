@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="mealshift_website_add_address_template" inherit_id="website_sale.address">
+        <xpath expr="//form/div" position="inside">
+            <div class="w-100"/>
+            <div t-attf-class="mb-3 col-lg-6 div_partner_latitude">
+                <label class="col-form-label" for="partner_latitude">Latitude</label>
+                <input type="number" name="partner_latitude" t-attf-class="form-control" />
+            </div>
+            <div t-attf-class="mb-3 col-md-6 div_partner_longitude">
+                <label class="col-form-label" for="partner_longitude">Longitude</label>
+                <input type="number" name="partner_longitude" t-attf-class="form-control" />
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_pos_pos_form_mealshift_inherit" model="ir.ui.view">
+            <field name="name">view.pos.pos.form.mealshift.inherit</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="carrier_id" invisible="not carrier_id" />
+                    <field name="mealshift_status" invisible="not carrier_id" />
+                    <field name="mealshift_status_reason" invisible="not mealshift_status_reason" />
+                    <field name="mealshift_order_id" invisible="not mealshift_order_id" />
+                    <field name="mealshift_partner_reference" invisible="not mealshift_partner_reference" />
+                </xpath>
+            </field>
+        </record>
+
+
+                <record id="view_pos_config_form_mealshift_inherit" model="ir.ui.view">
+            <field name="name">view.pos.config.form.mealshift.inherit</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <label for="mealshift_client_reference">Mealshift Client Reference</label>
+                    <field name="mealshift_client_reference" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_pos_config_list_mealshift_inherit" model="ir.ui.view">
+            <field name="name">view.pos.config.list.mealshift.inherit</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="mealshift_client_reference" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

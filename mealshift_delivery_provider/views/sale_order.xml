@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_sale_order_form_mealshift_inherit" model="ir.ui.view">
+            <field name="name">view.sale.order.form.mealshift.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="carrier_id" invisible="1" />
+                    <field name="mealshift_status" invisible="not carrier_id" />
+                    <field name="mealshift_status_reason" invisible="not mealshift_status_reason" />
+                    <field name="mealshift_order_id" invisible="not mealshift_order_id" />
+                    <field name="mealshift_partner_reference" invisible="not mealshift_partner_reference" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_website_form_mealshift_inherit" model="ir.ui.view">
+            <field name="name">view.website.form.mealshift.inherit</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="mealshift_client_reference" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_website_list_mealshift_inherit" model="ir.ui.view">
+            <field name="name">view.website.list.mealshift.inherit</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="mealshift_client_reference" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

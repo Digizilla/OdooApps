@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_delivery_carrier_form_with_provider_mealshift" model="ir.ui.view">
+        <field name="name">delivery.carrier.form.provider.mealshift</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='website_id']" position="after">
+                <field name="published_on_pos" />
+            </xpath>
+            <xpath expr="//page[@name='destination']" position='before'>
+                <!-- <page string="Mealshift Configuration" name="mealshift_configurations" attrs="{'invisible': [('delivery_type', '!=', 'mealshift')]}"> -->
+                <page string="Mealshift Configuration" name="mealshift_configurations" invisible="delivery_type != 'mealshift'">
+                    <group>
+                        <field name="mealshift_base_url" />
+                        <field name="mealshift_partner" />
+                        <field name="mealshift_ms_partner_id" />
+                        <field name="mealshift_secret" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
