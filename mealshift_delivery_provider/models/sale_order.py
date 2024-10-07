@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 from .mealshift_api_methods import publish_order, cancel_order
 
 class MealshiftSaleOrder(models.Model):
@@ -98,32 +99,36 @@ class MealshiftSaleOrder(models.Model):
 
 
     def _action_cancel(self):
-        configuration_parameters = {
-            "id": str(self.carrier_id.id),
-            "base_url": self.carrier_id.mealshift_base_url,
-            "partner": self.carrier_id.mealshift_partner,
-            "ms_partner_id": self.carrier_id.mealshift_ms_partner_id,
-            "secret": self.carrier_id.mealshift_secret
-        }
+        if self.carrier_id.delivery_type == "mealshift":
+            configuration_parameters = {
+                "id": str(self.carrier_id.id),
+                "base_url": self.carrier_id.mealshift_base_url,
+                "partner": self.carrier_id.mealshift_partner,
+                "ms_partner_id": self.carrier_id.mealshift_ms_partner_id,
+                "secret": self.carrier_id.mealshift_secret
+            }
 
-        if not configuration_parameters:
-            self.write({'mealshift_status_reason': 'No configs found to cancel!'})
+            if not configuration_parameters:
+                self.write({'mealshift_status_reason': 'No configs found to cancel!'})
 
-        for configuration_parameter in configuration_parameters:
-            if not configuration_parameters[configuration_parameter] or configuration_parameters[
-                configuration_parameter] == "":
-                self.write({'mealshift_status_reason': 'A config not found to cancel!'})
+            for configuration_parameter in configuration_parameters:
+                if not configuration_parameters[configuration_parameter] or configuration_parameters[
+                    configuration_parameter] == "":
+                    self.write({'mealshift_status_reason': 'A config not found to cancel!'})
 
-        data = {
-            "clientReference": "w" + str(self.website_id.id),
-            "orderReference": self.id
-        }
+            data = {
+                "clientReference": "w" + str(self.website_id.id),
+                "orderReference": str(self.id)
+            }
 
-        canceled = cancel_order(configuration_parameters, data)
-        if canceled:
-            self.write({'mealshift_status': 'canceled'})
-
-        return super(MealshiftSaleOrder, self)._action_cancel()
+            canceled = cancel_order(configuration_parameters, data)
+            if canceled:
+                self.write({'mealshift_status': 'canceled'})
+                return super(MealshiftSaleOrder, self)._action_cancel()
+            else:
+                raise UserError("Cannot cancel this order!, this is an order linked with mealshift and an error happened ")
+        else:
+            return super(MealshiftSaleOrder, self)._action_cancel()
 
 class MealShiftWebsite(models.Model):
     _inherit = 'website'

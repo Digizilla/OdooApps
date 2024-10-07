@@ -1,5 +1,7 @@
 from odoo import models, fields, api, _
-from .mealshift_api_methods import publish_order
+from odoo.exceptions import UserError
+from .mealshift_api_methods import publish_order, cancel_order
+
 
 class MealshiftPosOrder(models.Model):
     _inherit = 'pos.order'
@@ -7,7 +9,8 @@ class MealshiftPosOrder(models.Model):
     carrier_id = fields.Many2one('delivery.carrier', required=False, readonly=True)
     mealshift_status = fields.Selection([
         ('not_published', 'Not Published'),
-        ('published', 'Published')
+        ('published', 'Published'),
+        ('canceled', 'Canceled')
     ],string="Mealshift Status", readonly=True, required=False, default='not_published')
     mealshift_status_reason = fields.Char(string="Mealshift Status Reason", required=False, default="", readonly=True)
     mealshift_order_id = fields.Char(string="Mealshift Order ID", required=False, default="", readonly=True)
@@ -98,6 +101,34 @@ class MealshiftPosOrder(models.Model):
 
         return record
 
+    def cancel_mealshift_order(self):
+        if self.carrier_id.delivery_type == "mealshift":
+            configuration_parameters = {
+                "id": str(self.carrier_id.id),
+                "base_url": self.carrier_id.mealshift_base_url,
+                "partner": self.carrier_id.mealshift_partner,
+                "ms_partner_id": self.carrier_id.mealshift_ms_partner_id,
+                "secret": self.carrier_id.mealshift_secret
+            }
+
+            if not configuration_parameters:
+                self.write({'mealshift_status_reason': 'No configs found to cancel!'})
+
+            for configuration_parameter in configuration_parameters:
+                if not configuration_parameters[configuration_parameter] or configuration_parameters[
+                    configuration_parameter] == "":
+                    self.write({'mealshift_status_reason': 'A config not found to cancel!'})
+
+            data = {
+                "clientReference": "p" + str(self.config_id.id),
+                "orderReference": str(self.id)
+            }
+
+            canceled = cancel_order(configuration_parameters, data)
+            if canceled:
+                self.write({'mealshift_status': 'canceled'})
+            else:
+                raise UserError("Cannot cancel this order!, this is an order linked with mealshift and an error happened ")
 
 class MealShiftPosConfig(models.Model):
     _inherit = 'pos.config'

@@ -123,8 +123,10 @@ def cancel_order(configuration_parameters, data):
         }
 
         response = requests.post(full_url, headers=headers, json=data)
-
+        print("this is the response: ", response)
+        print("this is the json: ", response.json())
         if response.status_code == 200:
+            print("the order has been canceled")
             canceled = True
 
 
