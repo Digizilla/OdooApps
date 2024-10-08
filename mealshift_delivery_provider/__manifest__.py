@@ -57,6 +57,7 @@
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
+    'license': 'LGPL-3',
 
     # any module necessary for this one to work correctly
     # 'depends': ['base', 'website_sale_delivery', 'base_geolocalize'], # Odoo 16 depends
@@ -93,6 +94,7 @@
         'demo/demo.xml',
     ],
     "images": [
+        "static/description/Mealshift.jpeg",
         "static/description/screenshot1.png",
         "static/description/screenshot2.png",
         "static/description/screenshot3.png",
