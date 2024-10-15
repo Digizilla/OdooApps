@@ -1,52 +1,14 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "mealshift_delivery_provider",
+    'name': "Mealshift Delivery Connector",
 
     'summary': """
         Integration between Odoo modules (website, pos) and (Mealshift) delivery provider""",
 
     'description': """
-        -- Addon purpose:
         This addon is used for the integration between Odoo modules (Website, POS) and (Mealshift) delivery provider.
         After setting the proper configurations for your provider account you can request for shipping price,
         publish order or cancel order via the API and Odoo website and POS orders creation and confirmation.
-        
-        -- Features:
-        1- request shipping price from mealshift based on address 
-        2- request shipping price from mealshift based on (latitude and longitude) values
-        3- publish orders to mealshift
-        4- cancel orders in mealshift
-        5- create multiple shipping methods belongs to mealshift provider
-        6- shipping methods can be now used in POS (mealshift) ones and other ones
-        
-        -- Benefits:
-        1- POS has the ability of using shipping methods 
-        2- integrate your shippings with Mealshift
-        
-        -- How to use:
-        1- install mealshift_delivery_provider addon from the Apps
-        2- From (POS configuration menu or Website configuration menu) access shipping methods
-        3- Select mealshift shipping method and set your proper configurations (partner, id, secret)
-        4- Set (available on pos) field to True if you want to use this shipping method in the POS module
-        5- to use the mealshift inside the POS you will need to go the product that mealshift_delivery_provider creates
-        which is called (Mealshift Delivery Product) go to (sale) tab and then select a category for that product so it can be 
-        used in the pos.
-        6- Go to POS or Website and make you can now select mealshift shipping method 
-        7- retrieve the pricing from the shipping method based on your address or your latitude and longitude address values
-        8- POS publish order: in pos the order is published to mealshift once the order is validated
-        9- POS cancel order: in pos the order is canceled if you click on the "Cancel Delivery" button the pos.order form view
-        10- Website publish order: in website the order is published into mealshift once you click on the "confirm" button the sale.order form view
-        11- Website cancel order: in website the order is canceled once you click on the "cancel" button in the sale.order form view
-        
-        -- Technical details:
-        - each webiste/pos have its unique mealshift identifier to be used in the “Partner ID” field of the mealshift integration settings
-        the website/pos identifier is calculated as:
-            if website: w + website_id
-            if pos: p + pos_config_id
-        - please when using inside POS module don't forget to select a category for the delivery product
-        - publish the delivery method from it's form view to be available in the website
-        - you can change the default base url if you are using test or prdouction enviroment 
-        - please don't forget to set your (partner, id, secret) values
     """,
 
     'author': "Digizilla",
