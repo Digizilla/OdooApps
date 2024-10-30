@@ -8,18 +8,24 @@ registerPatch({
     name: 'Chatter',
     recordMethods: {
         async onClickSendSMS(event) {
+             if (this && this.isTemporary) {
+                const saved = await this.doSaveRecord();
+                if (!saved) {
+                    return;
+                }
+                else {
+                    this.sendSMS();
+                    return;
+                }
+            }
+            this.sendSMS();
+        },
+        async sendSMS() {
             const hash = window.location.hash;
             const params = new URLSearchParams(hash.substring(hash.indexOf('?') + 1));
-            var activeId = params.get('id');
+            let activeId = params.get('id') || params.get('#id');
             const model = params.get('model');
 
-//            console.log(model, params )
-//             if (model === 'sale.order') {
-//                const saleOrder = await this.env.services['orm'].read('sale.order', [parseInt(activeId)], ['partner_id']);
-//                if (saleOrder.length) {
-//                    activeId = saleOrder[0].partner_id[0];
-//                }
-//            }
 
             const action = await this.env.services['action'].doAction({
                 type: 'ir.actions.act_window',
@@ -34,5 +40,7 @@ registerPatch({
             });
             console.log('res_id', activeId)
         },
-    },
+    }
+
+
 });
