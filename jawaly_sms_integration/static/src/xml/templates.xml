@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="chatter_camera.camera" t-inherit="mail.ChatterTopbar" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_ChatterTopbar_borderLeft')]" position="inside">
+             <button id="sendSMS_button" type="button" t-on-click="chatterTopbar.chatter.onClickSendSMS"
+                     style="border:6px;background-color:white;" class="o_ChatterTopbar_button btn text-nowrap me-2 o_ChatterTopbar_borderLeft ps-2">
+				 Send SMS
+             </button>
+		</xpath>
+
+	</t>
+</templates>

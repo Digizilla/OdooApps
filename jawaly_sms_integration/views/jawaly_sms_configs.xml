@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+
+        <record id="jawaly_res_config_settings_view_form" model="ir.ui.view">
+           <field name="name">
+               jawaly.res.config.settings.view.form
+           </field>
+           <field name="model">res.config.settings</field>
+           <field name="priority" eval="15"/>
+           <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+           <field name="arch" type="xml">
+               <xpath expr="//div[hasclass('settings')]" position="inside">
+                   <div class="app_settings_block"
+                        data-string="Jawaly Settings"
+                        string="Jawaly Settings"
+                        data-key="jawaly_settings">
+                       <h2>Jawaly Settings</h2>
+                       <div class="row mt16 o_settings_container">
+                           <div class="col-12 col-lg-12 o_setting_box">
+                               <div class="o_setting_left_pane"/>
+                               <div class="o_setting_right_pane">
+                                   <span class="o_form_label">APP ID</span>
+                                   <div class="text-muted content-group mt16">
+                                       <field name="jawaly_app_id"/>
+                                   </div>
+                                   <span class="o_form_label">APP SECRET</span>
+                                   <div class="text-muted content-group mt16">
+                                       <field name="jawaly_app_secret"/>
+                                   </div>
+<!--                                   <span class="o_form_label">SENDER NAME</span>-->
+<!--                                   <div class="text-muted content-group mt16">-->
+<!--                                       <field name="jawaly_sender_name"/>-->
+<!--                                   </div>-->
+                                   <span class="o_form_label">SENDER</span>
+                                   <div class="text-muted content-group mt16">
+                                       <field name="jawaly_sender"/>
+                                   </div>
+                                   <span class="o_form_label">Refresh Senders</span>
+                                   <div class="content-group mt16">
+                                       <button name="refresh_jawaly_senders" type="object" string="Refresh Senders" class="btn btn-primary"/>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </xpath>
+           </field>
+        </record>
+
+<!--        <record id="jawaly_res_config_settings_view_form_action" model="ir.actions.act_window">-->
+<!--           <field name="name">Jawaly Configurations</field>-->
+<!--           <field name="type">ir.actions.act_window</field>-->
+<!--           <field name="res_model">res.config.settings</field>-->
+<!--           <field name="view_mode">form</field>-->
+<!--           <field name="target">inline</field>-->
+<!--           <field name="context">{'module' : 'jawaly_sms_integration'}</field>-->
+<!--        </record>-->
+
+<!--        <menuitem id="jawaly_settings_menu_root"-->
+<!--         name="Jawaly Settings"-->
+<!--         sequence="1"/>-->
+<!--        <menuitem id="jawaly_settings_menu_action"-->
+<!--                 name="Jawaly Configurations"-->
+<!--                 parent="jawaly_sms_integration.jawaly_settings_menu_root"-->
+<!--                 sequence="6"/>-->
+<!--        <menuitem id="jawaly_sms_settings_menu_action"-->
+<!--                 name="Jawaly Settings"-->
+<!--                 parent="jawaly_sms_integration.jawaly_settings_menu_action"-->
+<!--                 action="jawaly_res_config_settings_view_form_action"-->
+<!--                 sequence="7"/>-->
+    </data>
+</odoo>

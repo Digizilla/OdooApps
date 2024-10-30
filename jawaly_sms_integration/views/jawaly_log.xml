@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="jawaly_log_form_view" model="ir.ui.view">
+            <field name="name">jawaly.log.form.view</field>
+            <field name="model">jawaly.log</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="number"/>
+                                <field name="description"/>
+                                <field name="log"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="jawaly_log_tree_view" model="ir.ui.view">
+            <field name="name">jawaly.log.tree.view</field>
+            <field name="model">jawaly.log</field>
+            <field name="arch" type="xml">
+                <tree string="Log" create="false" edit="false">
+                    <field name="create_date"/>
+                    <field name="number"/>
+                    <field name="description"/>
+                    <field name="log"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="jawaly_log_action" model="ir.actions.act_window">
+            <field name="name">Jawaly Log</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jawaly.log</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Jawaly Log" id="jawaly_log_sub_menu"
+                  parent="jawaly_sms_integration.jawaly_settings_menu_root"
+                  action="jawaly_log_action" sequence="3"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_jawaly_sender_names,jawaly.sender.names,model_jawaly_sender_names,base.group_user,1,1,1,1
+access_jawaly_log,jawaly.log,model_jawaly_log,base.group_user,1,1,1,1

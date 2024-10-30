@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+
+        <record id="jawaly_sender_names_view_tree" model="ir.ui.view">
+           <field name="name"> jawaly.sender.names.view.tree</field>
+           <field name="model">jawaly.sender.names</field>
+           <field name="priority" eval="15"/>
+           <field name="arch" type="xml">
+               <tree create="False">
+                   <header>
+                       <button name="get_senders" type="object" string="Get Senders" class="btn btn-primary" />
+                   </header>
+                   <field name="jawaly_id" />
+                   <field name="name" />
+                   <field name="status" />
+                   <field name="is_ad" />
+                   <field name="is_default" />
+                   <field name="jawaly_created_at" />
+               </tree>
+           </field>
+        </record>
+
+        <record id="jawaly_sender_names_view_action" model="ir.actions.act_window">
+           <field name="name">Jawaly Senders</field>
+           <field name="type">ir.actions.act_window</field>
+           <field name="res_model">jawaly.sender.names</field>
+           <field name="view_mode">tree</field>
+           <field name="target">inline</field>
+           <field name="context">{'module' : 'jawaly_sms_integration'}</field>
+        </record>
+
+        <menuitem id="jawaly_settings_menu_root" name="Jawaly" sequence="1" action="jawaly_sender_names_view_action" web_icon="jawaly_sms_integration,static/description/icon.png"/>
+         <menuitem id="jawaly_senders_sub_menu" name="Jawaly Senders" parent="jawaly_settings_menu_root" sequence="1" action="jawaly_sender_names_view_action"/>
+    </data>
+</odoo>
