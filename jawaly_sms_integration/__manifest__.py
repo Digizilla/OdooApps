@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Jawaly SMS Integration',
+    'name': '4Jawaly SMS Integration',
     'version': '1.2',
     'category': 'sms',
     'sequence': 100,
@@ -10,6 +10,9 @@
     'description': "Integrate jawaly sms api with odoo sms_gateway module",
     'website': 'https://www.odoo.com/page/crm',
     'application': True,
+    'author': "Digizilla",
+    'website': "https://www.digizilla.net",
+    'license': 'LGPL-3',
     'depends': [
         'base',
         'sms',
